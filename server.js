@@ -32,7 +32,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //get method that grabs index.ejs and our localhost default will go to this page
-app.get("/", (req, res) => {
+app.get("/", checkAuthenticated, (req, res) => {
     res.render("index.ejs", { name: req.user.name })
 })
 
@@ -73,6 +73,13 @@ This functionality makes the user able to login as we now have saved the users d
         res.redirect("/register")
     }
 })
+
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    res.redirect("/login")
+} 
 
 
 app.listen(3000)
