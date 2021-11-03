@@ -42,7 +42,11 @@ app.get("/login", (req, res) => {
 })
 
 //create a POST method for /login
-app.post("/login", )
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+    failureFlash: true
+}))
 
 //get method that grabs register.ejs
 app.get("/register", (req, res) => {
