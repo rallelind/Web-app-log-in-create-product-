@@ -2,6 +2,10 @@
 const express = require("express");
 const app = express();
 
+//we want to use bcrypt library to hash our users passwords to make them safe
+const bcrypt = require("bcrypt");
+
+//As we are not storing our data on a database we instead store them in this local variable
 const users = []
 
 //we use our dependency ejs 
