@@ -5,7 +5,10 @@ const bcrypt = require("bcrypt"); //we want to use bcrypt library to hash our us
 const passport = require("passport"); //we want to use passport in order to allow user and password authentication
 
 const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
-initializePassport(passport); //we call our function with the passport variable that requires passport
+initializePassport(
+    passport, 
+    email => users.find(user => user.email === email)
+); //we call our function with the passport variable that requires passport
 
 //As we are not storing our data on a database we instead store them in this local variable
 const users = []
