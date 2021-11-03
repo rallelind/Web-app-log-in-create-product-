@@ -2,6 +2,8 @@
 const express = require("express");
 const app = express();
 
+const users = []
+
 //we use our dependency ejs 
 app.set("view-engine", "ejs")
 
