@@ -37,24 +37,24 @@ app.get("/", checkAuthenticated, (req, res) => {
 })
 
 //get method that grabs login.ejs 
-app.get("/login", (req, res) => {
+app.get("/login", checkNotAuthenticated, (req, res) => {
     res.render("login.ejs");
 })
 
 //create a POST method for /login
-app.post("/login", passport.authenticate("local", {
+app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
     failureFlash: true
 }))
 
 //get method that grabs register.ejs
-app.get("/register", (req, res) => {
+app.get("/register", checkNotAuthenticated, (req, res) => {
     res.render("register.ejs");
 })
 
 //creating a POST method for /register with and async function
-app.post("/register", async (req, res) => {
+app.post("/register", checkNotAuthenticated, async (req, res) => {
 /*we create a try, catch block to make sure the data is correct
 thereafter we push the data we want into our users array. If this was successfull we will redirect to /login.
 This functionality makes the user able to login as we now have saved the users data in our users array*/
@@ -74,6 +74,11 @@ This functionality makes the user able to login as we now have saved the users d
     }
 })
 
+app.delete("/logout", (req, res) => {
+    req.logOut
+    req.redirect("/login")
+})
+
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next()
@@ -83,7 +88,7 @@ function checkAuthenticated(req, res, next) {
 
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        res.redirect("/")
+        return res.redirect("/")
     }
     next()
 }
