@@ -33,7 +33,7 @@ app.use(passport.session())
 
 //get method that grabs index.ejs and our localhost default will go to this page
 app.get("/", (req, res) => {
-    res.render("index.ejs")
+    res.render("index.ejs", { name: req.user.name })
 })
 
 //get method that grabs login.ejs 
