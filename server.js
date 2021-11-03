@@ -5,6 +5,9 @@ const app = express();
 //we use our dependency ejs 
 app.set("view-engine", "ejs")
 
+//This tells the app that we want to take the forms and to be able to access them inside our req in our post method
+app.use(express.urlencoded({ extended: false }))
+
 //get method that grabs index.ejs and our localhost default will go to this page
 app.get("/", (req, res) => {
     res.render("index.ejs")
