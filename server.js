@@ -49,7 +49,7 @@ This functionality makes the user able to login as we now have saved the users d
             password: hashedPassword
         })
         res.redirect("/login")
-//in the catch block we redirect back to register in case of an error
+//in the catch block we redirect back to register in case of an failure
     }catch{
         res.redirect("/register")
     }
