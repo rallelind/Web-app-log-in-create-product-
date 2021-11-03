@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt"); //we want to use bcrypt library to hash our us
 const passport = require("passport"); //we want to use passport in order to allow user and password authentication
 const flash = require("express-flash")
 const session = require("express-session")
+const methodOverride = require("method-override")
 
 const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
 initializePassport(
@@ -30,6 +31,7 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(methodOverride("_method"))
 
 //get method that grabs index.ejs and our localhost default will go to this page
 app.get("/", checkAuthenticated, (req, res) => {
