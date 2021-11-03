@@ -1,23 +1,29 @@
+
+
 //we use require to use express and save it as app
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt"); //we want to use bcrypt library to hash our users passwords to make them safe
 const passport = require("passport"); //we want to use passport in order to allow user and password authentication
+const flash = require("express-flash")
+const session = require("express-session")
 
 const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
+const flash = require("express-flash");
 initializePassport(
     passport, 
     email => users.find(user => user.email === email)
 ); //we call our function with the passport variable that requires passport
 
-//As we are not storing our data on a database we instead store them in this local variable
-const users = []
 
-//we use our dependency ejs 
-app.set("view-engine", "ejs")
+const users = [] //As we are not storing our data on a database we instead store them in this local variable
 
-//This tells the app that we want to take the forms and to be able to access them inside our req in our post method
-app.use(express.urlencoded({ extended: false }))
+app.set("view-engine", "ejs") //we use our dependency ejs 
+app.use(express.urlencoded({ extended: false })) //This tells the app that we want to take the forms and to be able to access them inside our req in our post method
+app.use(flash())
+app.use(session({
+    secret: process.env.SESSION_SECRET
+}))
 
 //get method that grabs index.ejs and our localhost default will go to this page
 app.get("/", (req, res) => {
