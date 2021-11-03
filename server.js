@@ -34,9 +34,25 @@ app.get("/register", (req, res) => {
     res.render("register.ejs");
 })
 
-//create a POST method for /register
-app.post("/register", (req, res) => {
-
+//creating a POST method for /register with and async function
+app.post("/register", async (req, res) => {
+/*we create a try, catch block to make sure the data is correct
+thereafter we push the data we want into our users array. If this was successfull we will redirect to /login.
+This functionality makes the user able to login as we now have saved the users data in our users array*/
+    try { 
+//we create a hashedPassword variable and give at a value of 10 as it is a standard default value that makes the hashing quick and secure
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        users.push({
+            id: Date.now().toString(),
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword
+        })
+        res.redirect("/login")
+//in the catch block we redirect back to register in case of an error
+    }catch{
+        res.redirect("/register")
+    }
 })
 
 
