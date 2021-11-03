@@ -13,7 +13,8 @@ const session = require("express-session")
 const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
 initializePassport(
     passport, 
-    email => users.find(user => user.email === email)
+    email => users.find(user => user.email === email),
+    id => users.find(user => user.id === id)
 ); //we call our function with the passport variable that requires passport
 
 
