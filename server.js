@@ -77,8 +77,8 @@ This functionality makes the user able to login as we now have saved the users d
 })
 
 app.delete("/logout", (req, res) => {
-    req.logOut
-    req.redirect("/login")
+    req.logOut()
+    res.redirect("/login")
 })
 
 function checkAuthenticated(req, res, next) {
