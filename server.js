@@ -1,9 +1,11 @@
 //we use require to use express and save it as app
 const express = require("express");
 const app = express();
+const bcrypt = require("bcrypt"); //we want to use bcrypt library to hash our users passwords to make them safe
+const passport = require("passport"); //we want to use passport in order to allow user and password authentication
 
-//we want to use bcrypt library to hash our users passwords to make them safe
-const bcrypt = require("bcrypt");
+const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
+initializePassport(passport); //we call our function with the passport variable that requires passport
 
 //As we are not storing our data on a database we instead store them in this local variable
 const users = []
