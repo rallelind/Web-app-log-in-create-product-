@@ -11,7 +11,6 @@ const flash = require("express-flash")
 const session = require("express-session")
 
 const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
-const flash = require("express-flash");
 initializePassport(
     passport, 
     email => users.find(user => user.email === email)

@@ -1,4 +1,7 @@
 <h1>Login</h1>
+<% if (messages.error) { %>
+<%= messages.error %>
+<% } %>
 <!--create a register form that uses "/register" and tells us that the method used is post-->
 <form action="/login" method="POST">
 <!--filled out the form adding email and password-->
