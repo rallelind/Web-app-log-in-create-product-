@@ -15,11 +15,20 @@ app.get("/login", (req, res) => {
     res.render("login.ejs");
 })
 
+//create a POST method for /login
+app.post("/login", (req,res) => {
+
+})
+
 //get method that grabs register.ejs
 app.get("/register", (req, res) => {
     res.render("register.ejs");
 })
 
 //create a POST method for /register
+app.post("/register", (req, res) => {
+
+})
+
 
 app.listen(3000)
