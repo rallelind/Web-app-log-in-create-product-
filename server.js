@@ -20,4 +20,6 @@ app.get("/register", (req, res) => {
     res.render("register.ejs");
 })
 
+//create a POST method for /register
+
 app.listen(3000)

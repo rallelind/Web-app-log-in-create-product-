@@ -1,4 +1,23 @@
 <h1>Register</h1>
 <!--create a register form that uses "/register" and tells us that the method used is post-->
 <form action="/register" method="POST">
+<!--filled out the form adding name, email and password-->
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+        <br>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+        <br>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+        <br>
+    <button type="submit">Register</button>
 </form>
+<!--after the form i use <a> to link to login-->
+<a href="/login">Login</a>
