@@ -2,14 +2,13 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()
 }
 
-//we use require to use express and save it as app
-const express = require("express");
-const app = express();
+const express = require("express"); //we use require to use express 
+const app = express(); //then save it as app and now express is ready to be used
 const bcrypt = require("bcrypt"); //we want to use bcrypt library to hash our users passwords to make them safe
 const passport = require("passport"); //we want to use passport in order to allow user and password authentication
-const flash = require("express-flash")
-const session = require("express-session")
-const methodOverride = require("method-override")
+const flash = require("express-flash") //we donloaded express flash library to store users
+const session = require("express-session") //we downloaded express session library to display messages for wrong email etc
+const methodOverride = require("method-override") //we use this method as forms is not accepted in the delete method and this method will allow us to have forms in delete method
 
 const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
 initializePassport(
@@ -23,15 +22,29 @@ const users = [] //As we are not storing our data on a database we instead store
 
 app.set("view-engine", "ejs") //we use our dependency ejs 
 app.use(express.urlencoded({ extended: false })) //This tells the app that we want to take the forms and to be able to access them inside our req in our post method
-app.use(flash())
+app.use(flash()) //this tells our app that we want to use flash
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
-}))
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(methodOverride("_method"))
+})) 
+app.use(passport.initialize()) //this tells our app to use passport and grab our initialize function from passport-config.js
+app.use(passport.session()) //this tells our app that we want to use the session method with passport
+app.use(methodOverride("_method")) //this tells our app that when we use methodOverride we use it by calling "_method"
+
+function checkAuthenticated(req, res, next) { //we create a function that checks if the user is authenticated
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    res.redirect("/login") //if the user is not authenticated they get redirected to the login page
+} 
+
+function checkNotAuthenticated(req, res, next) { //we create a function that checks if the user is not authenticated
+    if (req.isAuthenticated()) {
+        return res.redirect("/") 
+    }
+    next() 
+}
 
 //get method that grabs index.ejs and our localhost default will go to this page
 app.get("/", checkAuthenticated, (req, res) => {
@@ -76,23 +89,15 @@ This functionality makes the user able to login as we now have saved the users d
     }
 })
 
-app.delete("/logout", (req, res) => {
-    req.logOut()
-    res.redirect("/login")
+app.delete("/logout", (req, res) => { //we create a delete function that allows the user to logout
+    req.logOut() //then we use the logOut method from passport which allows the user to logout
+    res.redirect("/login") //lastly we redirect the user to /login
 })
 
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    }
-    res.redirect("/login")
-} 
-
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect("/")
-    }
-    next()
-}
+app.delete("/", (req,res) => { //We create a delete function that deletes the user 
+    users.splice(0,users.length); //using the splice method we can delete the user info in our users array
+    req.logOut() //we use the logOut method from passport
+    res.redirect("/login") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
+})
 
 app.listen(3000)
