@@ -1,11 +1,18 @@
 <link rel='stylesheet' href='/style.css' />
 <body>
-<h1>Hi <%= name %></h1>
-<form action="/logout?_method=DELETE" method="post">
-    <button type="submit">Log Out</button>
-</form>
+    <header>
+            <form action="/logout?_method=DELETE" method="post">
+                <button type="submit">Log Out</button>
+            </form>
 
-<form action="/?_method=DELETE" method="POST">
-    <button type="submit">Log Out and delete profile</button>
-</form>
+            <form action="/?_method=DELETE" method="POST">
+                <button type="submit">Log Out and delete profile</button>
+            </form>
+            <form method="PUT">
+                <button type="submit">Opdate profile</button>
+            </form>
+    </header>
+    <div id="welcome">
+        <h1>Hi <%= name %></h1>
+    </div>
 </body>

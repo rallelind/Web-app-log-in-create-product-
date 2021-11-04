@@ -3,15 +3,6 @@ body {
 
 }
 
-.some-class {
-    width:200px;
-    padding:20px;
-  }
-
-  *, *:before, *:after {
-    box-sizing: border-box;
-  }
-
 #form {
     position: fixed;
     margin: auto;
@@ -43,7 +34,7 @@ input[type=text] {
     margin: 15px;
 }
 
-button {
+button[type=submit1] {
     appearance:none;
     -webkit-appearance:none;
     padding:10px;
@@ -54,4 +45,35 @@ button {
     border-radius:20px;
     width: 60%;
     margin: 15px;
+}
+
+button[type=submit1]:hover {
+    opacity: .8;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+button[type=submit] {
+    appearance:none;
+    -webkit-appearance:none;
+    padding:10px;
+    border:none;
+    background-color:#3F51B5;
+    color:#fff;
+    font-weight:600;
+    border-radius:20px;
+    margin: 15px;
+    width: 300px;
+}
+
+button[type=submit]:hover {
+    opacity: .8;
+}
+
+#welcome {
+    text-align: left;
+    font-size: 35px;
 }
