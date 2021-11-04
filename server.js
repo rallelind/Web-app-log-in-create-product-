@@ -31,6 +31,9 @@ app.use(session({
 app.use(passport.initialize()) //this tells our app to use passport and grab our initialize function from passport-config.js
 app.use(passport.session()) //this tells our app that we want to use the session method with passport
 app.use(methodOverride("_method")) //this tells our app that when we use methodOverride we use it by calling "_method"
+app.use(express.static(__dirname + '/public'));
+
+
 
 function checkAuthenticated(req, res, next) { //we create a function that checks if the user is authenticated
     if (req.isAuthenticated()) {

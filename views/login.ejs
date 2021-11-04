@@ -1,21 +1,28 @@
-<h1>Login</h1>
-<% if (messages.error) { %>
-<%= messages.error %>
-<% } %>
+<link rel='stylesheet' href='/style.css' />
+
+
 <!--create a register form that uses "/register" and tells us that the method used is post-->
+<div id="form">
+    <h1>Login</h1>
 <form action="/login" method="POST">
 <!--filled out the form adding email and password-->
     <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+        <label for="email"></label>
+        <% if (messages.error) { %>
+            <%= messages.error %>
+            <% } %>
+        <input type="email" id="email" name="email" required placeholder="Email">
+
     </div>
         <br>
     <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <label for="password"></label>
+        <input type="password" id="password" name="password" required placeholder="Password">
     </div>
         <br>
     <button type="submit">Login</button>
-</form>
-<!--after the form i use <a> to link to login-->
-<a href="/register">Register</a>
+    </form>
+    <!--after the form i use <a> to link to login-->
+    <a href="/register">Register</a>
+</div>
+
