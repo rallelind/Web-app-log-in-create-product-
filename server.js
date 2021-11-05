@@ -131,7 +131,7 @@ app.put("/update", async (req, res) => {
 
 // App functionality
 const product = []
-
+// Post method that creates a product and saves it in product array
 app.post("/", (req, res) => {
     product.push({
             id: req.user.id,
