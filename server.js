@@ -90,6 +90,7 @@ This functionality makes the user able to login as we now have saved the users d
     }catch{
         res.redirect("/register")
     }
+    console.log(users);
 })
 
 app.delete("/logout", (req, res) => { //we create a delete function that allows the user to logout
@@ -102,5 +103,27 @@ app.delete("/", (req,res) => { //We create a delete function that deletes the us
     req.logOut() //we use the logOut method from passport
     res.redirect("/login") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
 })
+
+app.get("/update", checkAuthenticated, (req, res) => {
+    res.render("update.ejs")
+})
+
+app.put("/update", async (req, res) => {
+        try { 
+            const hashedPassword = await bcrypt.hash(req.body.password, 10)
+            users.push({
+                id: req.user.id,
+                name: req.body.name,
+                email: req.body.email,
+                password: hashedPassword
+            })
+            users.splice(0,1);   
+            res.redirect("/")
+        }catch{
+            res.redirect("/update")
+        }
+        
+        console.log(users)
+    })
 
 app.listen(3000)
