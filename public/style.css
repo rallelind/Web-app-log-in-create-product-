@@ -1,6 +1,9 @@
 body {
     font-family: monospace;
+}
 
+h1 {
+    text-align: center;
 }
 
 #form {
@@ -39,12 +42,13 @@ button[type=submit1] {
     -webkit-appearance:none;
     padding:10px;
     border:none;
-    background-color:#3F51B5;
+    background-color:#7487f3;
     color:#fff;
     font-weight:600;
     border-radius:20px;
     width: 60%;
     margin: 15px;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
 }
 
 button[type=submit1]:hover {
@@ -61,7 +65,7 @@ button[type=submit] {
     -webkit-appearance:none;
     padding:10px;
     border:none;
-    background-color:#3F51B5;
+    background-color:#7487f3;
     color:#fff;
     font-weight:600;
     border-radius:20px;
@@ -94,3 +98,4 @@ button[type=submit]:hover {
 .updateInfo {
     width: 500px;
 }
+

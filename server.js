@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()
 }
 
+// The methods used
 const express = require("express"); //we use require to use express 
 const app = express(); //then save it as app and now express is ready to be used
 const bcrypt = require("bcrypt"); //we want to use bcrypt library to hash our users passwords to make them safe
@@ -10,6 +11,7 @@ const flash = require("express-flash") //we donloaded express flash library to s
 const session = require("express-session") //we downloaded express session library to display messages for wrong email etc
 const methodOverride = require("method-override") //we use this method as forms is not accepted in the delete method and this method will allow us to have forms in delete method
 
+// Login functionality 
 const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
 initializePassport(
     passport, 
@@ -125,5 +127,21 @@ app.put("/update", async (req, res) => {
         
         console.log(users)
     })
+
+
+// App functionality
+const product = []
+
+app.post("/", (req, res) => {
+    product.push({
+            id: req.user.id,
+            description: req.body.description,
+            price: req.body.price,
+            category: req.body.category,
+            image: req.body.img
+        })
+        res.status(200).redirect("/")
+        console.log(product);
+})
 
 app.listen(3000)
