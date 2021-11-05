@@ -1,24 +1,26 @@
-<div id="form">
-    <h1>Update</h1>
+<link href="/style.css" rel="stylesheet">
+
+<div id="form1">
+    <h1>Update Profile</h1>
     <!--create a register form that uses "/register" and tells us that the method used is post-->
     <form action="/update?_method=PUT" method="POST">
     <!--filled out the form adding name, email and password-->
         <div>
             <label for="name"></label>
-            <input type="text" id="name" name="name" required placeholder="Name">
+            <input class="updateInfo" type="text" id="name" name="name" required placeholder="Name">
         </div>
             <br>
         <div>
             <label for="email"></label>
-            <input type="email" id="email" name="email" required placeholder="Email">
+            <input class="updateInfo" type="email" id="email" name="email" required placeholder="Email">
         </div>
             <br>
         <div>
             <label for="password"></label>
-            <input type="password" id="password" name="password" required placeholder="Password">
+            <input class="updateInfo" type="password" id="password" name="password" required placeholder="Password">
         </div>
             <br>
-        <button type="submit1">Update</button>
+        <button id="update" type="submit1">Update</button>
     </form>
     <!--after the form i use <a> to link to login-->
     <a href="/">return to main page</a>

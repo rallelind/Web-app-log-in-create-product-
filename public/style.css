@@ -77,3 +77,20 @@ button[type=submit]:hover {
     text-align: left;
     font-size: 35px;
 }
+
+#form1 {
+    text-align: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 150px;
+}
+
+#update {
+    width: 200px;
+}
+
+.updateInfo {
+    width: 500px;
+}
