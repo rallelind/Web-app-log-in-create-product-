@@ -17,27 +17,27 @@
         <h1>Hi <%= name %></h1>
     </div>
           
-    <form action="/" method="POST">
-        <!--filled out the form adding name, email and password-->
+    <form id="form2" action="/" method="POST">
+        <h2>Which product would you like to create?</h2>
             <div>
                 <label for="description"></label>
-                <input type="text" id="description" name="description" required placeholder="Description">
+                <input class="updateInfo" type="text" id="description" name="description" required placeholder="Description">
             </div>
                 <br>
             <div>
                 <label for="price"></label>
-                <input type="text" id="price" name="price" required placeholder="Price">
+                <input class="updateInfo" type="text" id="price" name="price" required placeholder="Price">
             </div>
                 <br>
             <div>
                 <label for="category"></label>
-                <input type="text" id="category" name="category" required placeholder="category">
+                <input class="updateInfo" type="text" id="category" name="category" required placeholder="category">
             </div>
                 <br>
             <div>
                 <label for="img">Select image:</label>
                 <input type="file" id="img" name="img" accept="image/*" required>
             </div>
-            <button type="submit1">Create Product</button>
+            <button id="createProduct" type="submit1">Create Product</button>
         </form>
 </body>
