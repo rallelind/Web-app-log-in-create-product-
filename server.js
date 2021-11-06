@@ -139,7 +139,7 @@ app.get("/profile", checkAuthenticated, (req, res) => {
 // Post method that creates a product and saves it in product array
 app.post("/", checkAuthenticated, (req, res) => {
     product.push({
-            id: req.body.id,
+            id: req.user.id,
             description: req.body.description,
             price: req.body.price,
             category: req.body.category,
@@ -149,12 +149,25 @@ app.post("/", checkAuthenticated, (req, res) => {
         console.log(product);
 })
 
-app.get("/update-product", (req, res) => {
+app.get("/update-product", checkAuthenticated, (req, res) => {
     res.render("update-product.ejs")
 })
 
-app.put("/update-product", (req, res) => {
-    
+app.put("/update-product", async(req, res) => {
+        try { 
+            product.push({
+                id: req.user.id,
+                description: req.body.description,
+                price: req.body.price,
+                category: req.body.category,
+                image: await req.body.img
+            })
+            product.splice(0,1);
+            res.redirect("/profile")
+        }catch{
+            res.redirect("/update-product")
+        }
+        console.log(product)
 })
 
 app.listen(3000)
