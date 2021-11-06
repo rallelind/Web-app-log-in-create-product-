@@ -20,6 +20,10 @@
     <form id="form2" action="/" method="POST">
         <h2>Which product would you like to create?</h2>
             <div>
+                <label for="id"></label>
+                <input class="updateInfo" type="text" id="id" name="id" required placeholder="Id">
+            </div>
+            <div>
                 <label for="description"></label>
                 <input class="updateInfo" type="text" id="description" name="description" required placeholder="Description">
             </div>
@@ -38,6 +42,9 @@
                 <label for="img">Select image:</label>
                 <input type="file" id="img" name="img" accept="image/*" required>
             </div>
-            <button id="createProduct" type="submit1">Create Product</button>
+            <form action="/profile">
+                <button id="createProduct" type="submit1">Create Product</button>
+            </form>
+            <a href="/profile">View your products</a>
         </form>
 </body>

@@ -13,6 +13,7 @@ const methodOverride = require("method-override") //we use this method as forms 
 
 // Login functionality 
 const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
+const { render } = require("ejs");
 initializePassport(
     passport, 
     email => users.find(user => user.email === email),
@@ -131,19 +132,29 @@ app.put("/update", async (req, res) => {
 
 // App functionality
 const product = []
+app.get("/profile", checkAuthenticated, (req, res) => {
+    res.render("profile.ejs")
+})
+
 // Post method that creates a product and saves it in product array
-app.post("/", (req, res) => {
+app.post("/", checkAuthenticated, (req, res) => {
     product.push({
-            id: req.user.id,
+            id: req.body.id,
             description: req.body.description,
             price: req.body.price,
             category: req.body.category,
             image: req.body.img
         })
-        res.status(200).redirect("/")
+        res.status(200).redirect("/profile")
         console.log(product);
 })
 
+app.get("/update-product", (req, res) => {
+    res.render("update-product.ejs")
+})
 
+app.put("/update-product", (req, res) => {
+    
+})
 
 app.listen(3000)
