@@ -133,7 +133,10 @@ app.put("/update", async (req, res) => {
 // App functionality
 const product = []
 app.get("/profile", checkAuthenticated, (req, res) => {
-    res.render("profile.ejs")
+    res.render("profile.ejs", { 
+        name: req.user.name,
+        product: product 
+    })
 })
 
 // Post method that creates a product and saves it in product array
@@ -168,6 +171,12 @@ app.put("/update-product", async(req, res) => {
             res.redirect("/update-product")
         }
         console.log(product)
+})
+
+app.delete("/profile", (req,res) => { //We create a delete function that deletes the user 
+    product.splice(0,product.length); //using the splice method we can delete the user info in our users array
+    res.redirect("/profile") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
+    console.log(product);
 })
 
 app.listen(3000)
