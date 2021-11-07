@@ -2,13 +2,26 @@
     <body>
         <link rel='stylesheet' href='/style.css' />
 
-    <h1><%= name %>, here you can view your products for sale</h1>
+    <h1 id="profileH"><%= name %>, here you can view your products for sale</h1>
 
-        <ul>
+    <div id="table">
+        <table class="styled-table">
+            <thead>
+                <th>Description</th>
+                <th>Price</th>
+                <th>category</th>
+                <th>Image</th>
+            </thead>
             <% product.forEach(function(eachCat){ %>
-                <li> <%= eachCat.category %>  <%= eachCat.description %> </li>
+            <tr class="active-row">
+                <td> <%= eachCat.description %> </td>
+                <td> <%= eachCat.price %> </td>
+                <td> <%= eachCat.category %> </td>
+                <td> <%= eachCat.image %> </td>
+            </tr>
             <% }) %>
-        </ul>
+        </table>
+    </div>
     <form id="delete" action="/profile?_method=DELETE" method="POST">
         <br>
         <h2>Made a mistake? Delete products here:</h2>
