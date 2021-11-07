@@ -179,4 +179,6 @@ app.delete("/profile", (req,res) => { //We create a delete function that deletes
     console.log(product);
 })
 
+
+
 app.listen(3000)

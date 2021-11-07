@@ -12,6 +12,11 @@
             <button type="submit">Update profile</button>
         </form>
 </header>
+    <ul>
+        <% product.forEach(function(eachCat){ %>
+        <a href="#"><%= eachCat.category %></a>
+        <% }) %>
+    </ul>
     <body>
         <link rel='stylesheet' href='/style.css' />
 
