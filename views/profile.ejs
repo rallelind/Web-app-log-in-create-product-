@@ -1,8 +1,19 @@
 <html>
     <body>
         <link rel='stylesheet' href='/style.css' />
-    <h1>View your products for sale</h1>
-        
+
+    <h1><%= name %>, here you can view your products for sale</h1>
+
+        <ul>
+            <% product.forEach(function(eachCat){ %>
+                <li> <%= eachCat.category %>  <%= eachCat.description %> </li>
+            <% }) %>
+        </ul>
+    <form id="delete" action="/profile?_method=DELETE" method="POST">
+        <br>
+        <h2>Made a mistake? Delete products here:</h2>
+        <button type="submit">Delete Your Products</button>
+    </form>
         <a href="/update-product">Update Product</a>
         <a href="/">return to home page</a>
 </html>

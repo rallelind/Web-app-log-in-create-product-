@@ -116,3 +116,7 @@ h2 {
     bottom: 0;
     margin: 50px;
 }
+
+#delete {
+    text-align: center;
+}

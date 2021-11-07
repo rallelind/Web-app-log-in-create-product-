@@ -1,13 +1,15 @@
 <link href="/style.css" rel="stylesheet">
 <div id="form1">
-    <h1>Update Product</h1>
+    <h1>Oh! made a typo? Change product here!</h1>
+    <br>
+    <h2>Update Product</h2>
     <!--create a register form that uses "/register" and tells us that the method used is post-->
     <form action="/update-product?_method=PUT" method="POST">
     <!--filled out the form adding name, email and password-->
             <br>
         <div>
             <label for="description"></label>
-            <input class="updateInfo" type="text" id="description" name="description" required placeholder="Description">
+            <input class="updateInfo" type="text" id="description" name="description" c placeholder="Description">
         </div>
             <br>
         <div>
@@ -22,7 +24,7 @@
             <br>
         <div>
             <label for="img">Select image:</label>
-            <input type="file" id="img" name="img" accept="image/*" required>
+            <input type="file" id="img" name="img" required accept="image/*">
         </div>
             <br>
         <button id="update" type="submit1">Update</button>
