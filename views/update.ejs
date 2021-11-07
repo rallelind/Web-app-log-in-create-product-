@@ -1,6 +1,15 @@
 
 <link href="/style.css" rel="stylesheet">
+<header>
+    <form action="/logout?_method=DELETE" method="post">
+        <button type="submit">Log Out</button>
+    </form>
 
+    <form action="/?_method=DELETE" method="POST">
+        <button type="submit">Log Out and delete profile</button>
+    </form>
+    
+</header>
 <div id="form1">
     <h1>Update Profile</h1>
     <!--create a register form that uses "/register" and tells us that the method used is post-->
@@ -24,5 +33,5 @@
         <button id="update" type="submit1">Update</button>
     </form>
     <!--after the form i use <a> to link to login-->
-    <a href="/">return to main page</a>
+    <a href="/profile">return to your profile</a>
     </div>

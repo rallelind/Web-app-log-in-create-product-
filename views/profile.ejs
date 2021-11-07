@@ -1,4 +1,17 @@
 <html>
+    <header>
+        <form action="/logout?_method=DELETE" method="post">
+            <button type="submit">Log Out</button>
+        </form>
+
+        <form action="/?_method=DELETE" method="POST">
+            <button type="submit">Log Out and delete profile</button>
+        </form>
+        
+        <form action="/update?_method=PUT" method="POST">
+            <button type="submit">Update profile</button>
+        </form>
+</header>
     <body>
         <link rel='stylesheet' href='/style.css' />
 
@@ -28,5 +41,6 @@
         <button type="submit">Delete Your Products</button>
     </form>
         <a href="/update-product">Update Product</a>
-        <a href="/">return to home page</a>
+        <br>
+        <a href="/">Create Product</a>
 </html>

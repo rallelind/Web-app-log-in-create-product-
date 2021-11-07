@@ -1,6 +1,19 @@
 <link href="/style.css" rel="stylesheet">
+<header>
+    <form action="/logout?_method=DELETE" method="post">
+        <button type="submit">Log Out</button>
+    </form>
+
+    <form action="/?_method=DELETE" method="POST">
+        <button type="submit">Log Out and delete profile</button>
+    </form>
+    
+    <form action="/update?_method=PUT" method="POST">
+        <button type="submit">Update profile</button>
+    </form>
+</header>
 <div id="form1">
-    <h1>Oh! made a typo? Change product here!</h1>
+    <h1 id="updateP">Oh! made a typo? Change product here!</h1>
     <br>
     <h2>Update Product</h2>
     <!--create a register form that uses "/register" and tells us that the method used is post-->
@@ -9,22 +22,22 @@
             <br>
         <div>
             <label for="description"></label>
-            <input class="updateInfo" type="text" id="description" name="description" c placeholder="Description">
+            <input class="updateInfo" type="text" id="description" name="description" placeholder="Description">
         </div>
             <br>
         <div>
             <label for="price"></label>
-            <input class="updateInfo" type="text" id="price" name="price" required placeholder="Price">
+            <input class="updateInfo" type="text" id="price" name="price" placeholder="Price">
         </div>
             <br>
         <div>
             <label for="category"></label>
-            <input class="updateInfo" type="text" id="category" name="category" required placeholder="category">
+            <input class="updateInfo" type="text" id="category" name="category" placeholder="category">
         </div>
             <br>
         <div>
             <label for="img">Select image:</label>
-            <input type="file" id="img" name="img" required accept="image/*">
+            <input type="file" id="img" name="img" accept="image/*">
         </div>
             <br>
         <button id="update" type="submit1">Update</button>
