@@ -11,12 +11,16 @@
         <form action="/update?_method=PUT" method="POST">
             <button type="submit">Update profile</button>
         </form>
+        <div class="dropdown">
+            <button class="dropbtn">Category Menu</button>
+            <div class="dropdown-content">
+                <% product.forEach(function(eachCat){ %>
+                <a href="#"><%= eachCat.category %></a>
+                <% }) %>
+            </div>
+          </div>
 </header>
-    <ul>
-        <% product.forEach(function(eachCat){ %>
-        <a href="#"><%= eachCat.category %></a>
-        <% }) %>
-    </ul>
+
     <body>
         <link rel='stylesheet' href='/style.css' />
 
