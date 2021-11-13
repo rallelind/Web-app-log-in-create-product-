@@ -38,19 +38,19 @@ app.use(express.static(__dirname + '/public'));
 
 
 
-function checkAuthenticated(req, res, next) { //we create a function that checks if the user is authenticated
+const checkAuthenticated = ((req, res, next) => { //we create a function that checks if the user is authenticated
     if (req.isAuthenticated()) {
         return next()
     }
     res.redirect("/login") //if the user is not authenticated they get redirected to the login page
-} 
+})
 
-function checkNotAuthenticated(req, res, next) { //we create a function that checks if the user is not authenticated
+const checkNotAuthenticated = ((req, res, next) => { //we create a function that checks if the user is not authenticated
     if (req.isAuthenticated()) {
         return res.redirect("/") 
     }
     next() 
-}
+})
 
 //get method that grabs index.ejs and our localhost default will go to this page
 app.get("/", checkAuthenticated, (req, res) => {
@@ -132,6 +132,7 @@ app.put("/update", async (req, res) => {
 
 // App functionality
 const product = []
+
 app.get("/profile", checkAuthenticated, (req, res) => {
     res.render("profile.ejs", { 
         name: req.user.name,
@@ -142,7 +143,6 @@ app.get("/profile", checkAuthenticated, (req, res) => {
 // Post method that creates a product and saves it in product array
 app.post("/", checkAuthenticated, (req, res) => {
     product.push({
-            id: product.length+1,
             description: req.body.description,
             price: req.body.price,
             category: req.body.category,
@@ -159,7 +159,6 @@ app.get("/update-product", checkAuthenticated, (req, res) => {
 app.put("/update-product", async(req, res) => {
         try { 
             product.push({
-                id: product.length,
                 description: req.body.description,
                 price: req.body.price,
                 category: req.body.category,
@@ -179,10 +178,10 @@ app.delete("/profile", (req,res) => { //We create a delete function that deletes
     console.log(product);
 })
 
-app.get("/return-category/:category", (req, res) => {
+app.get("/return-category/:category", checkAuthenticated, (req, res) => {
     const categories = product.find(c => c.category === req.params.category)
     if (!categories) return res.status(404).send("The course with given id was not found")
-    res.send(categories);
+    res.send(categories)
 });
 
 
