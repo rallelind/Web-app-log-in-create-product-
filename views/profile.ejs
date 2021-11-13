@@ -15,7 +15,7 @@
             <button class="dropbtn">Category Menu</button>
             <div class="dropdown-content">
                 <% product.forEach(function(eachCat){ %>
-                <a href="#"><%= eachCat.category %></a>
+                <a href="/return-category/<%= `${product.category}` %>"><%= eachCat.category %></a>
                 <% }) %>
             </div>
           </div>

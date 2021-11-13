@@ -135,14 +135,14 @@ const product = []
 app.get("/profile", checkAuthenticated, (req, res) => {
     res.render("profile.ejs", { 
         name: req.user.name,
-        product: product 
+        product: product
     })
 })
 
 // Post method that creates a product and saves it in product array
 app.post("/", checkAuthenticated, (req, res) => {
     product.push({
-            id: req.user.id,
+            id: product.length+1,
             description: req.body.description,
             price: req.body.price,
             category: req.body.category,
@@ -159,7 +159,7 @@ app.get("/update-product", checkAuthenticated, (req, res) => {
 app.put("/update-product", async(req, res) => {
         try { 
             product.push({
-                id: req.user.id,
+                id: product.length,
                 description: req.body.description,
                 price: req.body.price,
                 category: req.body.category,
@@ -178,6 +178,12 @@ app.delete("/profile", (req,res) => { //We create a delete function that deletes
     res.redirect("/profile") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
     console.log(product);
 })
+
+app.get("/return-category/:category", (req, res) => {
+    const categories = product.find(c => c.category === req.params.category)
+    if (!categories) return res.status(404).send("The course with given id was not found")
+    res.send(categories);
+});
 
 
 
