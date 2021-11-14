@@ -181,7 +181,7 @@ app.delete("/profile", (req,res) => { //We create a delete function that deletes
 app.get("/return-category/:category", checkAuthenticated, (req, res) => {
     const categories = product.find(c => c.category === req.params.category)
     if (!categories) return res.status(404).send("The course with given id was not found")
-    res.send(categories)
+    res.render("return-category.ejs", {categories: categories})
 });
 
 
