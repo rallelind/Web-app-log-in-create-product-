@@ -184,6 +184,9 @@ app.get("/return-category/:category", checkAuthenticated, (req, res) => {
     res.render("return-category.ejs", {categories: categories})
 });
 
+const usersJSON = JSON.stringify(users)
+const productJSON = JSON.stringify(product)
+
 
 
 app.listen(3000)
