@@ -10,6 +10,7 @@ const passport = require("passport"); //we want to use passport in order to allo
 const flash = require("express-flash") //we donloaded express flash library to store users
 const session = require("express-session") //we downloaded express session library to display messages for wrong email etc
 const methodOverride = require("method-override") //we use this method as forms is not accepted in the delete method and this method will allow us to have forms in delete method
+const fs = require('fs');
 
 // Login functionality 
 const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
@@ -93,7 +94,17 @@ This functionality makes the user able to login as we now have saved the users d
     }catch{
         res.redirect("/register")
     }
+    
     console.log(users);
+
+    const usersJSON = JSON.stringify(users);
+
+    fs.writeFile("./data/users.json", usersJSON, 'utf8', function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+    }); 
 })
 
 app.delete("/logout", (req, res) => { //we create a delete function that allows the user to logout
@@ -150,6 +161,13 @@ app.post("/", checkAuthenticated, (req, res) => {
         })
         res.status(200).redirect("/profile")
         console.log(product);
+        const productJSON = JSON.stringify(product);
+        fs.writeFile("./data/product.json", productJSON, 'utf8', function (err) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log("The file was saved!");
+        }); 
 })
 
 app.get("/update-product", checkAuthenticated, (req, res) => {
@@ -183,10 +201,6 @@ app.get("/return-category/:category", checkAuthenticated, (req, res) => {
     if (!categories) return res.status(404).send("The course with given id was not found")
     res.render("return-category.ejs", {categories: categories})
 });
-
-const usersJSON = JSON.stringify(users)
-const productJSON = JSON.stringify(product)
-
 
 
 app.listen(3000)
