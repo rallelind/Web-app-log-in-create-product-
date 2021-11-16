@@ -39,6 +39,17 @@ app.use(express.static(__dirname + '/public'));
 
 
 
+const sendUsersJSON = (() => {
+    const usersJSON = JSON.stringify(users, null, 2);
+
+    fs.writeFile("./data/users.json", usersJSON, 'utf8', function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+    }); 
+})
+
 const checkAuthenticated = ((req, res, next) => { //we create a function that checks if the user is authenticated
     if (req.isAuthenticated()) {
         return next()
@@ -97,14 +108,7 @@ This functionality makes the user able to login as we now have saved the users d
     
     console.log(users);
 
-    const usersJSON = JSON.stringify(users, null, 2);
-
-    fs.writeFile("./data/users.json", usersJSON, 'utf8', function (err) {
-        if (err) {
-            return console.log(err);
-        }
-        console.log("The file was saved!");
-    }); 
+    sendUsersJSON()
 })
 
 app.delete("/logout", (req, res) => { //we create a delete function that allows the user to logout
@@ -117,14 +121,7 @@ app.delete("/", (req,res) => { //We create a delete function that deletes the us
     req.logOut() //we use the logOut method from passport
     res.redirect("/login") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
 
-    const usersJSON = JSON.stringify(users, null, 2);
-
-    fs.writeFile("./data/users.json", usersJSON, 'utf8', function (err) {
-        if (err) {
-            return console.log(err);
-        }
-        console.log("The file was saved!");
-    }); 
+    sendUsersJSON()
 })
 
 app.get("/update", checkAuthenticated, (req, res) => {
@@ -150,17 +147,23 @@ app.put("/update", async (req, res) => {
 
         const usersJSON = JSON.stringify(users, null, 2);
 
-        fs.writeFile("./data/users.json", usersJSON, 'utf8', function (err) {
-            if (err) {
-                return console.log(err);
-            }
-            console.log("The file was saved!");
-        }); 
+        sendUsersJSON()
     })
 
 
 // App functionality
 const product = []
+
+const sendProductJSON = (() => {
+    const productJSON = JSON.stringify(product, null, 2); //null 2 for at få det i linjer
+
+    fs.writeFile("./data/product.json", productJSON, 'utf8', function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+    }); 
+})
 
 app.get("/profile", checkAuthenticated, (req, res) => {
     res.render("profile.ejs", { 
@@ -180,14 +183,7 @@ app.post("/", checkAuthenticated, (req, res) => {
         res.status(200).redirect("/profile")
         console.log(product);
 
-        const productJSON = JSON.stringify(product, null, 2); //null 2 for at få det i linjer
-
-        fs.writeFile("./data/product.json", productJSON, 'utf8', function (err) {
-            if (err) {
-                return console.log(err);
-            }
-            console.log("The file was saved!");
-        }); 
+        sendProductJSON()
 })
 
 app.get("/update-product", checkAuthenticated, (req, res) => {
@@ -208,12 +204,16 @@ app.put("/update-product", async(req, res) => {
             res.redirect("/update-product")
         }
         console.log(product)
+
+        sendProductJSON()
 })
 
 app.delete("/profile", (req,res) => { //We create a delete function that deletes the user 
     product.splice(0,product.length); //using the splice method we can delete the user info in our users array
     res.redirect("/profile") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
     console.log(product);
+
+    sendProductJSON()
 })
 
 app.get("/return-category/:category", checkAuthenticated, (req, res) => {
