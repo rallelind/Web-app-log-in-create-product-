@@ -97,7 +97,7 @@ This functionality makes the user able to login as we now have saved the users d
     
     console.log(users);
 
-    const usersJSON = JSON.stringify(users);
+    const usersJSON = JSON.stringify(users, null, 2);
 
     fs.writeFile("./data/users.json", usersJSON, 'utf8', function (err) {
         if (err) {
@@ -116,6 +116,15 @@ app.delete("/", (req,res) => { //We create a delete function that deletes the us
     users.splice(0,users.length); //using the splice method we can delete the user info in our users array
     req.logOut() //we use the logOut method from passport
     res.redirect("/login") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
+
+    const usersJSON = JSON.stringify(users, null, 2);
+
+    fs.writeFile("./data/users.json", usersJSON, 'utf8', function (err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("The file was saved!");
+    }); 
 })
 
 app.get("/update", checkAuthenticated, (req, res) => {
@@ -138,6 +147,15 @@ app.put("/update", async (req, res) => {
         }
         
         console.log(users)
+
+        const usersJSON = JSON.stringify(users, null, 2);
+
+        fs.writeFile("./data/users.json", usersJSON, 'utf8', function (err) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log("The file was saved!");
+        }); 
     })
 
 
@@ -161,7 +179,9 @@ app.post("/", checkAuthenticated, (req, res) => {
         })
         res.status(200).redirect("/profile")
         console.log(product);
-        const productJSON = JSON.stringify(product);
+
+        const productJSON = JSON.stringify(product, null, 2); //null 2 for at få det i linjer
+
         fs.writeFile("./data/product.json", productJSON, 'utf8', function (err) {
             if (err) {
                 return console.log(err);
