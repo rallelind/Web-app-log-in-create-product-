@@ -42,7 +42,7 @@ app.use(express.static(__dirname + '/public'));
 const sendUsersJSON = (() => {
     const usersJSON = JSON.stringify(users, null, 2);
 
-    fs.writeFile("./data/users.json", usersJSON, 'utf8', function (err) {
+    fs.writeFile("./dataJSON/users.json", usersJSON, 'utf8', function (err) {
         if (err) {
             return console.log(err);
         }
@@ -157,7 +157,7 @@ const product = []
 const sendProductJSON = (() => {
     const productJSON = JSON.stringify(product, null, 2); //null 2 for at få det i linjer
 
-    fs.writeFile("./data/product.json", productJSON, 'utf8', function (err) {
+    fs.writeFile("./dataJSON/product.json", productJSON, 'utf8', function (err) {
         if (err) {
             return console.log(err);
         }
