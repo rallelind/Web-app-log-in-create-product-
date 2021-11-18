@@ -10,6 +10,7 @@ const passport = require("passport"); //we want to use passport in order to allo
 const flash = require("express-flash") //we donloaded express flash library to store users
 const session = require("express-session") //we downloaded express session library to display messages for wrong email etc
 const methodOverride = require("method-override") //we use this method as forms is not accepted in the delete method and this method will allow us to have forms in delete method
+const fs = require('fs');
 
 // Login functionality 
 const initializePassport = require("./helpers/passport-config"); //we configure passport in seperate file to make code seperated and readible
@@ -19,6 +20,10 @@ initializePassport(
     email => users.find(user => user.email === email),
     id => users.find(user => user.id === id)
 ); //we call our function with the passport variable that requires passport
+
+const checkAuthenticated = require("./helpers/check-authenticated")
+const checkNotAuthenticated = require("./helpers/check-not-authenticated")
+
 
 app.set("view-engine", "ejs") //we use our dependency ejs 
 app.use(express.urlencoded({ extended: false })) //This tells the app that we want to take the forms and to be able to access them inside our req in our post method
@@ -34,6 +39,14 @@ app.use(methodOverride("_method")) //this tells our app that when we use methodO
 app.use(express.static(__dirname + '/public'));
 
 const users = [] //As we are not storing our data on a database we instead store them in this local variable
+
+const sendUsersJSON = (() => {
+    const usersJSON = JSON.stringify(users, null, 2);
+
+    fs.writeFile("./dataJSON/users.json", usersJSON, 'utf8', (err) => {
+        if (err) return console.log(err);
+    }); 
+})
 
 //get method that grabs index.ejs and our localhost default will go to this page
 app.get("/", checkAuthenticated, (req, res) => {
@@ -117,6 +130,14 @@ app.put("/update", async (req, res) => {
 // App functionality
 const product = []
 
+const sendProductJSON = (() => {
+    const productJSON = JSON.stringify(product, null, 2); //null 2 for at få det i linjer
+
+    fs.writeFile("./dataJSON/product.json", productJSON, 'utf8', (err) => {
+        if (err) return console.log(err);
+    }); 
+})
+
 app.get("/profile", checkAuthenticated, (req, res) => {
     res.status(200).render("profile.ejs", { 
         name: req.user.name,
@@ -172,3 +193,4 @@ app.get("/return-category/:category", checkAuthenticated, (req, res) => {
 
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Listening on port ${port}...`))
+
