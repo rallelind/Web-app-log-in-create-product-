@@ -13,16 +13,13 @@ const methodOverride = require("method-override") //we use this method as forms 
 const fs = require('fs');
 
 // Login functionality 
-const initializePassport = require("./passport-config"); //we configure passport in seperate file to make code seperated and readible
+const initializePassport = require("./helpers/passport-config"); //we configure passport in seperate file to make code seperated and readible
 const { render } = require("ejs");
 initializePassport(
     passport, 
     email => users.find(user => user.email === email),
     id => users.find(user => user.id === id)
 ); //we call our function with the passport variable that requires passport
-
-
-const users = [] //As we are not storing our data on a database we instead store them in this local variable
 
 app.set("view-engine", "ejs") //we use our dependency ejs 
 app.use(express.urlencoded({ extended: false })) //This tells the app that we want to take the forms and to be able to access them inside our req in our post method
@@ -37,41 +34,36 @@ app.use(passport.session()) //this tells our app that we want to use the session
 app.use(methodOverride("_method")) //this tells our app that when we use methodOverride we use it by calling "_method"
 app.use(express.static(__dirname + '/public'));
 
-
+const users = [] //As we are not storing our data on a database we instead store them in this local variable
 
 const sendUsersJSON = (() => {
     const usersJSON = JSON.stringify(users, null, 2);
 
-    fs.writeFile("./dataJSON/users.json", usersJSON, 'utf8', function (err) {
-        if (err) {
-            return console.log(err);
-        }
-        console.log("The file was saved!");
+    fs.writeFile("./dataJSON/users.json", usersJSON, 'utf8', (err) => {
+        if (err) return console.log(err);
     }); 
 })
 
 const checkAuthenticated = ((req, res, next) => { //we create a function that checks if the user is authenticated
-    if (req.isAuthenticated()) {
-        return next()
-    }
+    if (req.isAuthenticated()) return next()
+
     res.redirect("/login") //if the user is not authenticated they get redirected to the login page
 })
 
 const checkNotAuthenticated = ((req, res, next) => { //we create a function that checks if the user is not authenticated
-    if (req.isAuthenticated()) {
-        return res.redirect("/") 
-    }
+    if (req.isAuthenticated()) return res.redirect("/") 
+
     next() 
 })
 
 //get method that grabs index.ejs and our localhost default will go to this page
 app.get("/", checkAuthenticated, (req, res) => {
-    res.render("index.ejs", { name: req.user.name })
+    res.status(200).render("index.ejs", { name: req.user.name })
 })
 
 //get method that grabs login.ejs 
 app.get("/login", checkNotAuthenticated, (req, res) => {
-    res.render("login.ejs");
+    res.status(200).render("login.ejs");
 })
 
 //create a POST method for /login
@@ -83,7 +75,7 @@ app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
 
 //get method that grabs register.ejs
 app.get("/register", checkNotAuthenticated, (req, res) => {
-    res.render("register.ejs");
+    res.status(200).render("register.ejs");
 })
 
 //creating a POST method for /register with and async function
@@ -100,32 +92,29 @@ This functionality makes the user able to login as we now have saved the users d
             email: req.body.email,
             password: hashedPassword
         })
-        res.redirect("/login")
+        res.status(200).redirect("/login")
 //in the catch block we redirect back to register in case of an failure
     }catch{
-        res.redirect("/register")
+        res.status(400).redirect("/register")
     }
-    
-    console.log(users);
-
     sendUsersJSON()
 })
 
 app.delete("/logout", (req, res) => { //we create a delete function that allows the user to logout
     req.logOut() //then we use the logOut method from passport which allows the user to logout
-    res.redirect("/login") //lastly we redirect the user to /login
+    res.status(200).redirect("/login") //lastly we redirect the user to /login
 })
 
 app.delete("/", (req,res) => { //We create a delete function that deletes the user 
     users.splice(0,users.length); //using the splice method we can delete the user info in our users array
     req.logOut() //we use the logOut method from passport
-    res.redirect("/login") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
+    res.status(200).redirect("/login") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
 
     sendUsersJSON()
 })
 
 app.get("/update", checkAuthenticated, (req, res) => {
-    res.render("update.ejs")
+    res.status(200).render("update.ejs")
 })
 
 app.put("/update", async (req, res) => {
@@ -138,15 +127,10 @@ app.put("/update", async (req, res) => {
                 password: hashedPassword
             })
             users.splice(0,1);   
-            res.redirect("/")
+            res.status(200).redirect("/")
         }catch{
-            res.redirect("/update")
+            res.status(400).redirect("/update")
         }
-        
-        console.log(users)
-
-        const usersJSON = JSON.stringify(users, null, 2);
-
         sendUsersJSON()
     })
 
@@ -157,16 +141,13 @@ const product = []
 const sendProductJSON = (() => {
     const productJSON = JSON.stringify(product, null, 2); //null 2 for at få det i linjer
 
-    fs.writeFile("./dataJSON/product.json", productJSON, 'utf8', function (err) {
-        if (err) {
-            return console.log(err);
-        }
-        console.log("The file was saved!");
+    fs.writeFile("./dataJSON/product.json", productJSON, 'utf8', (err) => {
+        if (err) return console.log(err);
     }); 
 })
 
 app.get("/profile", checkAuthenticated, (req, res) => {
-    res.render("profile.ejs", { 
+    res.status(200).render("profile.ejs", { 
         name: req.user.name,
         product: product
     })
@@ -181,7 +162,6 @@ app.post("/", checkAuthenticated, (req, res) => {
             image: req.body.img
         })
         res.status(200).redirect("/profile")
-        console.log(product);
 
         sendProductJSON()
 })
@@ -199,19 +179,16 @@ app.put("/update-product", async(req, res) => {
                 image: await req.body.img
             })
             product.splice(0,1);
-            res.redirect("/profile")
+            res.status(200).redirect("/profile")
         }catch{
-            res.redirect("/update-product")
+            res.status(400).redirect("/update-product")
         }
-        console.log(product)
-
         sendProductJSON()
 })
 
 app.delete("/profile", (req,res) => { //We create a delete function that deletes the user 
     product.splice(0,product.length); //using the splice method we can delete the user info in our users array
-    res.redirect("/profile") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
-    console.log(product);
+    res.status(200).redirect("/profile") //lastly we redirect to /login and now if we try entering the same info we will not be able to log on
 
     sendProductJSON()
 })
@@ -219,8 +196,8 @@ app.delete("/profile", (req,res) => { //We create a delete function that deletes
 app.get("/return-category/:category", checkAuthenticated, (req, res) => {
     const categories = product.find(c => c.category === req.params.category)
     if (!categories) return res.status(404).send("The course with given id was not found")
-    res.render("return-category.ejs", {categories: categories})
+    res.status(200).render("return-category.ejs", {categories: categories})
 });
 
-
-app.listen(3000)
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`Listening on port ${port}...`))
