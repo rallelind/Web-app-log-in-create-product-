@@ -44,18 +44,6 @@ const sendUsersJSON = (() => {
     }); 
 })
 
-const checkAuthenticated = ((req, res, next) => { //we create a function that checks if the user is authenticated
-    if (req.isAuthenticated()) return next()
-
-    res.redirect("/login") //if the user is not authenticated they get redirected to the login page
-})
-
-const checkNotAuthenticated = ((req, res, next) => { //we create a function that checks if the user is not authenticated
-    if (req.isAuthenticated()) return res.redirect("/") 
-
-    next() 
-})
-
 //get method that grabs index.ejs and our localhost default will go to this page
 app.get("/", checkAuthenticated, (req, res) => {
     res.status(200).render("index.ejs", { name: req.user.name })
