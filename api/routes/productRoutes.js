@@ -20,7 +20,7 @@ const sendProductJSON = () => {
 router.get("/profile", checkAuthenticated, (req, res) => {
   res.status(200).render("profile.ejs", {
     name: req.user.name,
-    product: product,
+    product: product
   });
 });
 
@@ -30,7 +30,7 @@ router.post("/", checkAuthenticated, (req, res) => {
     description: req.body.description,
     price: req.body.price,
     category: req.body.category,
-    image: req.body.img,
+    image: req.body.img
   });
   res.status(200).redirect("/profile");
 
