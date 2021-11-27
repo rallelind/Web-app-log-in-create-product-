@@ -25,7 +25,7 @@ const sendUsersJSON = () => {
   });
 };
 
-//get method that grabs index.ejs and our localhost default will go to this page
+//get request that grabs index.ejs and our localhost default will go to this page
 router.get("/", checkAuthenticated, (req, res) => {
   res.status(200).render("index.ejs", { name: req.user.name });
 });
