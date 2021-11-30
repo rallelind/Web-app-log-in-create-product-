@@ -4,12 +4,15 @@ const router = express.Router();
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
+
 const initializePassport = require("../helpers/passport-config");
+
 initializePassport(
   passport,
   (email) => users.find((user) => user.email === email),
   (id) => users.find((user) => user.id === id)
 );
+
 const checkAuthenticated = require("../helpers/check-authenticated");
 const checkNotAuthenticated = require("../helpers/check-not-authenticated");
 

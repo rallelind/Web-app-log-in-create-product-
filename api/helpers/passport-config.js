@@ -12,13 +12,15 @@ function initialize(passport, getUserByEmail, getUserById) {
             }else{
                 return done(null, false, { message: "Password incorrect" })
             }
-        }catch(e){
-            return done(e)
+        }catch(error){
+            return done(error)
         }
     }
 
     passport.use(new LocalStrategy({ usernameField: "email" }, authenticatUser))
+
     passport.serializeUser((user, done) => done(null, user.id))
+    
     passport.deserializeUser((id, done) => { 
         return done(null, getUserById(id))
     })
