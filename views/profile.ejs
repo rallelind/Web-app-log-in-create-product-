@@ -1,5 +1,10 @@
 <html>
+    <link rel='stylesheet' href='/style.css' />
+
+    <body>
+
     <header>
+        <!-- Header info with logout, delete profule, and update profile -->
         <form action="/logout?_method=DELETE" method="post">
             <button type="submit">Log Out</button>
         </form>
@@ -12,6 +17,7 @@
             <button type="submit">Update profile</button>
         </form>
 
+        <!-- dropdown button that takes a category in the url and links to the given category -->
         <div class="dropdown">
             <button class="dropbtn">Category Menu</button>
             <div class="dropdown-content">
@@ -19,15 +25,13 @@
                 <a href="/return-category/<%= eachCat.category %>"><%= eachCat.category %></a>
                 <% }) %>
             </div>
-        </div>
-        
-</header>
+        </div>    
+    </header>
 
-    <body>
-        <link rel='stylesheet' href='/style.css' />
-
+    <!-- profile name that takes in user name and renders dynamically -->
     <h1 id="profileH"><%= name %>, here you can view your products for sale</h1>
 
+    <!-- table that takes in product array and makes table from data in array -->
     <div id="table">
         <table class="styled-table">
             <thead>
@@ -46,12 +50,18 @@
             <% }) %>
         </table>
     </div>
+
+    <!-- form that deletes product by clicking button -->
     <form id="delete" action="/profile?_method=DELETE" method="POST">
         <br>
         <h2>Made a mistake? Delete products here:</h2>
         <button type="submit">Delete Your Products</button>
     </form>
+
+    <!-- links to create product page and update product -->
         <a href="/update-product">Update Product</a>
         <br>
         <a href="/">Create Product</a>
+
+    </body>
 </html>

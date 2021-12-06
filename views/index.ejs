@@ -1,5 +1,7 @@
 <link rel='stylesheet' href='/style.css' />
+
 <body>
+    <!-- Header info with logout, delete profule, and update profile -->
     <header>
             <form action="/logout?_method=DELETE" method="post">
                 <button type="submit">Log Out</button>
@@ -14,10 +16,12 @@
             </form>
     </header>
 
+    <!-- Welcome that takes in user name and renders dynamically -->
     <div id="welcome">
         <h1>Hi <%= name %></h1>
     </div>
-          
+        
+    <!-- Form for creating a product -->
     <form id="form2" action="/" method="POST">
         <h2>Which product would you like to create?</h2>
             <div>
