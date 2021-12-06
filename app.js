@@ -1,3 +1,5 @@
+// Line 3-12 and 15-28 src: https://www.youtube.com/watch?v=-RCnNyD0L-s 
+
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config()
 }

@@ -5,6 +5,7 @@ const fs = require("fs");
 
 const checkAuthenticated = require("../helpers/check-authenticated");
 
+//array where we push product data to
 const product = [];
 
 //function that sends data from products array to JSON

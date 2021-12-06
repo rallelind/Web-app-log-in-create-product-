@@ -1,3 +1,5 @@
+// Line 3-22 and 33-112 src: https://www.youtube.com/watch?v=-RCnNyD0L-s 
+
 const express = require("express");
 const router = express.Router();
 
@@ -5,6 +7,7 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
 
+//passport middleware
 const initializePassport = require("../helpers/passport-config");
 
 initializePassport(
@@ -13,6 +16,7 @@ initializePassport(
   (id) => users.find((user) => user.id === id)
 );
 
+// Get helper functions
 const checkAuthenticated = require("../helpers/check-authenticated");
 const checkNotAuthenticated = require("../helpers/check-not-authenticated");
 

@@ -1,3 +1,5 @@
+// Line 3-29 src: https://www.youtube.com/watch?v=-RCnNyD0L-s 
+
 const LocalStrategy = require("passport-local").Strategy //we use the passport-local library and
 const bcrypt = require("bcrypt");
 
