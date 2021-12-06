@@ -70,7 +70,7 @@ router.delete("/profile", (req, res) => {
 //get function that checks if given category exists and then grab return-category.ejs
 router.get("/return-category/:category", checkAuthenticated, (req, res) => {
   const categories = product.find((c) => c.category === req.params.category);
-  if (!categories)return res.status(404).send("The course with given id was not found");
+  if (!categories)return res.status(404).send("The product with the given category was not found");
   
   res.status(200).render("return-category.ejs", { categories: categories });
 });
